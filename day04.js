@@ -5,34 +5,30 @@
  *
  */
 
-'use strict';
+var CryptoJS = require('crypto-js');
 
-var CryptoJS = require('crypto-js/');
+// iwrupvqb
+var pw = "iwrupvqb";
 
-function findHashNumber(input) {
+var p = pw;
+var hash = CryptoJS.MD5(p);
 
-	var hash = input.toString(CryptoJS.enc.Hex);
+var i = 0;
 
-	var x = 0;
-
-	while(x < Number.MAX_VALUE) {
-
-		x++;
-		if( ((hash + x).substring(0,6)) === '00000') {
-			break;
-		}
-	}
-
-	console.log(x);
-
-
-	// for(var i=0; i<Number.MAX_VALUE; i++){
-
-	// 	if( (MD5(input + i.toString()).substring(0,6)) === '00000') {
-	// 		console.log(i);
-	// 	}
-	// 	break;
-	// }
+while (hash.toString().substring(0, 6) != "000000") {
+		p = pw + i;
+		hash = CryptoJS.MD5(p);
+		i++;
 }
 
-findHashNumber('abcdef');
+console.log(p);
+
+console.log(hash.toString());
+
+// 9958219
+// 00000094434e1914548b3a1af245fb27
+
+// Answer is 346386 for the first part - solved in 4.5s
+// I did not understand the "hash" business, so the subreddit was HELPFUL
+
+// Answer is 9958218 for the second part - solved in 137.4s
