@@ -5,47 +5,32 @@
  *
  */
 
+var input = document.querySelector('pre').textContent.trim().split('\n');
 
 function findNaughtyOrNice (str) {
 
-	// var oneLine = str.split('\n');
-	// var nice = 0;
-	// var naughty = 0;
+	var nice = 0;
+	var naughty = 0;
 
-	// });
+	str.forEach(function(oneString){
+		var vowels = oneString.match( /[aeiou]/g );
+		var doubles = oneString.match( /([a-z])\1/ );
+		var notAllowed = oneString.match( /ab|cd|pq|xy/ );
 
-	var vowels = str.match( /[aeiou]{3,}/g );
-	var doubles = str.match( /([a-z])\1/ );
-	var notAllowed = str.match( /ab|cd|pq|xy/ );
+		if ( (vowels != undefined && vowels.length > 2) && (doubles != undefined && doubles.length > 0) && (notAllowed == undefined || notAllowed.length == 0) ) {
+			console.log(oneString + ' is NICE');
+			nice++;
+		}
+		else {
+			naughty++;
+		}
+	});
 
-	if ( (doubles != undefined && doubles.length > 0) ) {
-		console.log(str);
-	}
-	else {
-		console.log('Naughty');
-	}
-
-	console.log(vowels);
-
-	if ( (vowels != undefined && vowels.length > 1) ) {
-		console.log(str);
-	}
-	else {
-		console.log('Naughty');
-	}
-
-	// if ( (vowels != undefined && vowels.length > 2) && (doubles != undefined && doubles.length > 0) && (notAllowed == undefined || notAllowed.length == 0) ) {
-	// 	console.log(str);
-	// }
-	// else {
-	// 	console.log('nope');
-	// }
+	console.log('Nice: ' + nice + '\nNaughty: ' + naughty);
 }
-
-// taken from advent-of-code website
-var input = 'urrvucyrzzzooxhx';
-
-
 
 findNaughtyOrNice(input);
 
+// PART 1 - Nice: 238, Naughty: 762
+
+// PART 2 -
